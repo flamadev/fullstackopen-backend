@@ -1,10 +1,12 @@
 const { Schema, model } = require('mongoose');
+var uniqueValidator = require('mongoose-unique-validator');
 
 const personSchema = new Schema({
-  name: String,
-  number: String,
+  name: { type: String, required: true, unique: true },
+  number: { type: String, required: true, unique: true },
 });
 
+personSchema.plugin(uniqueValidator);
 personSchema.set('toJSON', {
   transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id;
