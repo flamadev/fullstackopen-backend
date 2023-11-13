@@ -54,7 +54,7 @@ app.get('/api/persons/:id', (request, response, next) => {
     })
     .catch(next);
 });
-app.put('/api/persons/:id', (request, response) => {
+app.put('/api/persons/:id', (request, response, next) => {
   const id = request.params.id;
   const person = request.body;
   const newPersonInfo = {
@@ -62,9 +62,12 @@ app.put('/api/persons/:id', (request, response) => {
     number: person.number,
   };
 
-  Person.findByIdAndUpdate(id, newPersonInfo, { new: true }).then((result) =>
-    response.status(204).end()
-  );
+  Person.findByIdAndUpdate(id, newPersonInfo, {
+    new: true,
+    runValidators: true,
+  })
+    .then((result) => response.status(204).end())
+    .catch(next);
 });
 app.delete('/api/persons/:id', (request, response, next) => {
   const id = request.params.id;
