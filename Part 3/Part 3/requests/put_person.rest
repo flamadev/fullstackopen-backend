@@ -1,0 +1,7 @@
+PUT  http://localhost:3001/api/persons/
+
+ {
+    "name": "Ramiro Hall",
+    "number": "1234519",
+    "id": "6549fcd8b81b39d8927dec2f"
+  }
